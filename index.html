@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generator Data Pelanggan</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+body{
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  min-height:100vh;
+  margin:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.card{
+  background:#fff;
+  width:100%;
+  max-width:900px;
+  border-radius:16px;
+  box-shadow:0 15px 40px rgba(0,0,0,.3);
+  padding:30px;
+}
+h1{text-align:center;margin-bottom:5px;}
+.subtitle{text-align:center;color:#666;margin-bottom:25px;}
+.form-group{margin-bottom:15px;}
+label{font-weight:600;margin-bottom:6px;display:block;}
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
+textarea{resize:vertical;}
+.actions{display:flex;gap:10px;margin-top:10px;}
+button{
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+  font-size:14px;
+}
+.btn-generate{background:#007bff;color:#fff;flex:1;}
+.btn-clear{background:#dc3545;color:#fff;flex:1;}
+.btn-pass{background:#28a745;color:#fff;width:100%;margin-top:6px;}
+.btn-copy{background:#6f42c1;color:#fff;width:100%;margin-top:10px;}
+.output{margin-top:20px;}
+.output textarea{
+  height:240px;
+  font-family:Consolas,monospace;
+}
+.footer{
+  text-align:center;
+  margin-top:15px;
+  font-size:12px;
+  color:#888;
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+
+<h1><i class="fa-solid fa-users"></i> Generator Data Pelanggan</h1>
+<div class="subtitle">RJA NETWORK • By Rz Network</div>
+
+<div class="form-group">
+<label>Nama Pelanggan</label>
+<input id="nama">
+</div>
+
+<div class="form-group">
+<label>Alamat</label>
+<textarea id="alamat"></textarea>
+</div>
+
+<div class="form-group">
+<label>Nomor Telepon</label>
+<input id="telepon">
+</div>
+
+<div class="form-group">
+<label>Tanggal Pemasangan</label>
+<input type="date" id="tanggal">
+</div>
+
+<div class="form-group">
+<label>Paket Layanan</label>
+<select id="paket">
+<option>Internet 15 Mbps</option>
+<option>Internet 20 Mbps</option>
+<option>Internet 30 Mbps</option>
+<option>Internet 40 Mbps</option>
+<option>Internet 50 Mbps</option>
+<option>Internet 100 Mbps</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Username Login</label>
+<input id="username">
+</div>
+
+<div class="form-group">
+<label>Password Login</label>
+<input id="password" readonly placeholder="Klik generate password">
+<button class="btn-pass" onclick="generatePassword()">
+<i class="fa-solid fa-key"></i> Generate Password Otomatis
+</button>
+</div>
+
+<div class="form-group">
+<label>Catatan</label>
+<textarea id="catatan"></textarea>
+</div>
+
+<div class="actions">
+<button class="btn-generate" onclick="generateData()">Generate Data</button>
+<button class="btn-clear" onclick="clearForm()">Clear</button>
+</div>
+
+<button class="btn-copy" onclick="salinHasil()">
+<i class="fa-solid fa-copy"></i> Salin Hasil
+</button>
+
+<div class="output">
+<label>Hasil Generate</label>
+<textarea id="hasil" readonly></textarea>
+</div>
+
+<div class="footer">
+Generator Pelanggan • Copyright© Muhamad Imam
+</div>
+
+</div>
+
+<script>
+function generatePassword(){
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let pass = '';
+  for(let i=0;i<8;i++){
+    pass += chars[Math.floor(Math.random()*chars.length)];
+  }
+  password.value = pass;
+}
+
+function generateData(){
+  const linkApp = 'https://play.google.com/store/apps/details?id=client.rejestagroupteknologi.com';
+
+  hasil.value =
+`REGISTRASI BERHASIL
+-----------------------------
+Nama               : ${nama.value}
+Alamat             : ${alamat.value}
+Telepon            : ${telepon.value}
+Tanggal Pemasangan : ${tanggal.value}
+Paket              : ${paket.value}
+Username           : ${username.value}
+Password           : ${password.value}
+Link App           : ${linkApp}
+
+Catatan:
+${catatan.value}`;
+}
+
+function salinHasil(){
+  if(!hasil.value){
+    alert('Belum ada data untuk disalin');
+    return;
+  }
+  hasil.select();
+  hasil.setSelectionRange(0, 99999);
+  document.execCommand('copy');
+  alert('Data berhasil disalin');
+}
+
+function clearForm(){
+  document.querySelectorAll('input, textarea, select').forEach(e=>e.value='');
+  hasil.value='';
+}
+</script>
+
+</body>
+</html>
